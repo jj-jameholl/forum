@@ -17,7 +17,9 @@ $this->registerJs('
     $(".comment-form").appendTo($(this).parent());
     $(".comment-form").find("input").filter(".input1").val("");
 	$(".comment-form").find("input").filter(".input2").val("");
-    $(".comment-form").find("input").filter(".input2").val($(this).parent().attr("class"));
+	$(".comment-form").find("input").filter(".input1").val($(this).parent().attr("class").split(" ")[1]);
+    $(".comment-form").find("input").filter(".input2").val($(this).parent().attr("class").split(" ")[0]);
+   $(".comment-form").find("input").filter(".input3").val($("#ar_id").val());	
     });
 	
    //点赞
@@ -138,7 +140,7 @@ $dataprovider_son = $model->search_son($model->id);
             ],
         ]);?>
         <?php }?>
-        <div class="<?=$model->id?>">
+        <div class="<?=$model->id?> <?=\app\models\Comment::findwriterbyid($model->id)?>">
     <a href="javascript:;" class="reply"><span class="glyphicon glyphicon-share-alt"></span>回复</a><div class="up_down"><div class="thumb-up"style="float:left"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;<em class="thumb-up-num"><?=$model->up?></em></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="thumb-down"style="float:right"><span class="glyphicon glyphicon-thumbs-down"></span>&nbsp;<em class="thumb-down-num"><?=$model->down?></em></div></div>
     </div>
         </div>

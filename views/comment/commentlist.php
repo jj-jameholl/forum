@@ -12,6 +12,7 @@ use app\models\Comment;
 <?php Pjax::begin(['id'=>'comments','enablePushState' => false,'options'=>['data-pjax'=>true],'linkSelector'=>false,])?>
 <h4>共&nbsp;<em><?=Comment::count($id)?></em>&nbsp;条评论</h4>
 <hr>
+<input type="hidden" id="ar_id" value="<?=$id?>">
 <?=ListView::widget([
     'id'=>'comment',
     'dataProvider'=>Comment::search($id),

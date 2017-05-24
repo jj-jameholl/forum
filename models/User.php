@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 use yii\db\ActiveRecord;
@@ -75,6 +76,17 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
                 ]
         ];
     }
+       public function getLog(){
+        $data = Log::find()->with('article')->where(['to_uid'=>$this->id])->orderBy('id DESC');
+        $dataprovide = new ActiveDataProvider([
+            'query' => $data,
+            'pagination'=>[
+                'pageSize'=>6,
+            ],
+        ]);
+        return $dataprovide;
+    }	
+
     public static function findIdentity($id)
     {
         return self::find()->where(['id'=>$id])->one();

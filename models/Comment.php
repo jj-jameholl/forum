@@ -102,5 +102,9 @@ class Comment extends \yii\db\ActiveRecord
             ->send();
         // });
     }
+	    public static function findwriterbyid($id){
+        $model = self::find()->where(['id'=>$id])->one();
+        return $model->user_id;
+    }
 }
 

@@ -7,6 +7,8 @@
  */
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
+use yii\widgets\ListView;
+use yii\helpers\Url;
 ?>
 <style>
     .leff{
@@ -176,8 +178,14 @@ margin-left:20px;
         </ul>
         <div id="mytabs" class="tab-content">
             <div id="done" class="tab-pane fade in active">
-            <h2>这里写我们的动态,比如说评论,写文章等等</h2>
-            </div>
+                <?=ListView::widget([
+                    'id'=>'log',
+                    'dataProvider'=>$user->log,
+                    'itemView'=>'/info/_log',
+                    //'layout'=>'{items}',
+                    'summary'=>false,
+                ])?>           
+ </div>
             <div class="tab-pane fade" id="basic" style="padding-left:0px">
 		<div class="basic-div" style="padding-top:0px;background-color:#f0f8ff">          
           <?php $form=ActiveForm::begin([

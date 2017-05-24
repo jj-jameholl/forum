@@ -9,6 +9,7 @@ namespace app\controllers;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use app\models\Log;
 use app\models\Comment;
 use app\models\User;
 use app\models\Updown;
@@ -33,6 +34,9 @@ public $enableCsrfValidation = false;
     }
     public function actionCreate(){
         $model = new Comment();
+	$log = new Log();
+	$transaction = Yii::$app->db->beginTransaction();
+try{
         $model->load(Yii::$app->request->post());
         $model->username = Yii::$app->user->identity->username;
         $model->user_id = Yii::$app->user->identity->id;
@@ -40,12 +44,17 @@ public $enableCsrfValidation = false;
 	 $model->article_id = $_GET['id'];
         $model->createdTime = time()+8*3600;
 	$model->send_email($model->username,$email);
- 	if($model->save()){
+ 	if($model->save()&&$log->goit($model->user_id,$_GET['author'],$model->article_id,'',$model->createdTime,$model->content)){
+	    $transaction->commit();
             return $this->renderAjax('/comment/content',['model'=>$model,'id'=>$model->article_id]);
         }
+} catch(Exception $e){
+	$transaction->rollBack();
+}
     }
     public function actionCreateson(){
         $model = new Comment();
+	$log = new Log();
  //       $model->load(Yii::$app->request->post());
 	   $model->content = $_GET['content'];
         $model->username = Yii::$app->user->identity->username;
@@ -55,8 +64,9 @@ public $enableCsrfValidation = false;
         if(isset($_GET['towho'])){
             $model->towho = $_GET['towho'];
         }
+	$to_uid = isset($_GET['towho'])?$_GET['towho']:$model->parent_id;
         $model->createdTime = time()+8*3600;
-        if($model->save()){
+        if($model->save()&&$log->goit($model->user_id,$to_uid,$_GET['article_id'],$model->parent_id,$model->createdTime,$model->content)){
               //  echo "1232";
 //            return $this->renderAjax('/comment/_content',['model'=>$model]);
 //            return $this->renderAjax('commentlist',['id'=>$_GET['article_id']]);
