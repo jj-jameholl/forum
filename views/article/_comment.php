@@ -27,7 +27,7 @@ $this->registerJs('
       var mythis = $(this);
         $.ajax({
         url:"'.Url::toRoute(["/comment/thumbup"]).'",
-        data:{"user_id":'.Yii::$app->user->identity->id.',"comment_id":$(this).parent().parent().attr("class")},
+        data:{"user_id":'.Yii::$app->user->identity->id.',"comment_id":$(this).parent().parent().attr("class").split(" ")[0]},
 //       beforeSend:function(){
 //	        $(".loading").removeClass("hidden");
 // 	      $(".loading").appendTo(mythis);
@@ -54,7 +54,7 @@ $this->registerJs('
         var mythis = $(this);
         $.ajax({
         url:"'.Url::toRoute(["/comment/thumbdown"]).'",
-        data:{"user_id":'.Yii::$app->user->identity->id.',"comment_id":$(this).parent().parent().attr("class")},
+        data:{"user_id":'.Yii::$app->user->identity->id.',"comment_id":$(this).parent().parent().attr("class").split(" ")[0]},
   //             beforeSend:function(){
   //      $(".loading").removeClass("hidden");
   //      $(".loading").appendTo(mythis);

@@ -45,6 +45,7 @@ border-radius:25px;
         background-color:#eee ;
         padding:4px 10px;
         border-color:#eee ;
+	color:#555;
     }
     .pagination >.active > a {
         background-color: #1cd388;
