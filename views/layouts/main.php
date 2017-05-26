@@ -36,7 +36,8 @@ height:38px;
 width:38px;
 border:1px solid;
 border-color:white;
-margin-top:-10px;
+margin-top:5px;
+margin-left:10px;
 border-radius:25px;
 }
 .pagination > li > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span, .pagination > li:first-child > a{
@@ -62,6 +63,9 @@ border-radius:25px;
        // padding: 5px;
 //	border:1px #bdc3c7 solid;
     }
+    .dropdown:hover > .dropdown-menu{
+	display:block;
+	}
     .push{
         font-size: 12px;
         color:#48c9b0;
@@ -93,7 +97,6 @@ border-radius:25px;
 			<?php }else{?>
 			<li><a href="<?=Url::toRoute(['/article/create'])?>">发布美文</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 				<img class="image" src="/uploads/avatar/<?=Yii::$app->user->identity->id?>/<?php 
 					if(Yii::$app->user->identity->photo==null){
 					echo "20161120033225_big.jpg";
@@ -137,6 +140,29 @@ border-radius:25px;
         </div>
 </div>
 <script type="text/javascript">
+    $(function () {
+        $(".img_popover").popover({
+            triggle: 'manual',
+            placement: 'left',
+            html: true,
+            content: "22",
+            animation: true,
+            //delay: {"show": 500, "hide": 100}
+        }).on("mouseenter", function () {
+            var _this = this;
+            $(this).popover("show");
+            $(this).siblings(".popover").on("mouseleave", function () {
+                $(_this).popover('hide');
+            });
+        }).on("mouseleave", function () {
+            var _this = this;
+            setTimeout(function () {
+                if (!$(".popover:hover").length) {
+                    $(_this).popover("hide");
+                }
+            }, 100);
+        });
+    });
 var tipsi;
         $("#tips").hover(function(){
             tipsi = layer.tips('点击注销登录',this,{tips:[4,'black'],time:0});

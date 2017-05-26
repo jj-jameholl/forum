@@ -5,6 +5,7 @@
  * Date: 2016/11/6
  * Time: 下午12:23
  */
+use app\components\Profile;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\widgets\ListView;
@@ -87,7 +88,7 @@ $this->title = $article->article;
         <div class="title">
         <h2><?=Html::encode($article->article)?></h2>
             <div class="info">
-               <a href="<?=Url::toRoute(['/info/look','id'=>$user->id])?>"><img class="img" src="/uploads/avatar/<?=$user->id?>/<?=$user->photo?>" title=<?=$user->role?>&nbsp;: data-toggle="popover" data-trigger="hover" data-placement="right" data-content=<?=$user->sign?>></a>&nbsp;<?=$user->username?>&nbsp;&nbsp;
+               <a href="<?=Url::toRoute(['/info/look','id'=>$user->id])?>"><img class="img img_popover" src="/uploads/avatar/<?=$user->id?>/<?=$user->photo?>" data-content='<?=Profile::widget(['userid'=>$user->id])?>'></a>&nbsp;<?=$user->username?>&nbsp;&nbsp;
                 <span class="glyphicon glyphicon-time"></span><?=date('Y-m-d H:i',$article->created)?>&nbsp;&nbsp;
                 <span class="glyphicon glyphicon-pencil" ></span><?='评论:'.count($article->comment)?>&nbsp;&nbsp;
                 <span class="glyphicon glyphicon-heart-empty" ></span>&nbsp;<?=$article->loves?>&nbsp;
