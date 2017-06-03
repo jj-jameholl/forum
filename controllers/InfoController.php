@@ -40,6 +40,10 @@ public function actionIndex(){
     return $this->render('index',['user'=>$user]);
 }
 public function actionLook($id){
+    if(Yii::$app->request->isAjax){
+        $user = User::findOne(['id'=>$id]);
+        return $this->renderAjax('/site/_profile',['user'=>$user]);
+    }
     $user = User::find()->where(['id'=>$id])->one();
     return $this->render('index',['user'=>$user]);
 }

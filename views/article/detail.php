@@ -54,6 +54,7 @@ $this->title = $article->article;
 }
 	.btns{
 	float:right;
+	padding-right:30px;
 	padding-top:100px;
 }
 	.tags{
@@ -88,7 +89,7 @@ $this->title = $article->article;
         <div class="title">
         <h2><?=Html::encode($article->article)?></h2>
             <div class="info">
-               <a href="<?=Url::toRoute(['/info/look','id'=>$user->id])?>"><img class="img img_popover" src="/uploads/avatar/<?=$user->id?>/<?=$user->photo?>" data-content='<?=Profile::widget(['userid'=>$user->id])?>'></a>&nbsp;<?=$user->username?>&nbsp;&nbsp;
+               <a rel="author" href="<?=Url::toRoute(['/info/look','id'=>$user->id])?>"><img class="img" src="/uploads/avatar/<?=$user->id?>/<?=$user->photo?>"></a>&nbsp;<?=$user->username?>&nbsp;&nbsp;
                 <span class="glyphicon glyphicon-time"></span><?=date('Y-m-d H:i',$article->created)?>&nbsp;&nbsp;
                 <span class="glyphicon glyphicon-pencil" ></span><?='评论:'.count($article->comment)?>&nbsp;&nbsp;
                 <span class="glyphicon glyphicon-heart-empty" ></span>&nbsp;<?=$article->loves?>&nbsp;
@@ -110,8 +111,8 @@ $this->title = $article->article;
                 </div>
 <?php if(Yii::$app->user->can('edit',['post'=>$article])){?>
 <div class="btns">
-	                    <button id="reedit" class="btn btn-info"  onclick="javascrtpt:window.location.href='<?=Url::toRoute(['/article/edit','article_id'=>$article->id])?>'"><span class="glyphicon glyphicon-repeat"></span>&nbsp;修改</button>
-                    <button id="delete" class="btn btn-danger"  onclick="javascrtpt:window.location.href='<?=Url::toRoute(['/article/delete','article_id'=>$article->id])?>'"><span class="glyphicon glyphicon-trash"></span>&nbsp;删除</button>
+	                    <button class="btn btn-info btn-tooltip" data-title="点击编辑文章" data-placement="left" onclick="javascrtpt:window.location.href='<?=Url::toRoute(['/article/edit','article_id'=>$article->id])?>'"><span class="glyphicon glyphicon-repeat"></span>&nbsp;修改</button>
+			    <button class="btn btn-danger btn-tooltip" data-title="确认删除文章？" data-placement="top" onclick="javascrtpt:window.location.href='<?=Url::toRoute(['/article/delete','article_id'=>$article->id])?>'"><span class="glyphicon glyphicon-trash"></span>&nbsp;删除</button>
 </div>
 <?php }?>
 </div>

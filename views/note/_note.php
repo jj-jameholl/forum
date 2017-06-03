@@ -103,7 +103,7 @@ $(".thumb-up").click(function(){
 </style>
 <div class="media">
 <div class="media-left">
-   <a href="<?=Url::toRoute(['/info/look','id'=>$model->user_id])?>"><img src="/uploads/avatar/<?=$model->user_id?>/<?=User::findimgbyid($model->user_id)?>" class="img_note img_popover" data-content='<?=Profile::widget(['userid'=>$model->user_id])?>'></a>
+   <a rel="author" href="<?=Url::toRoute(['/info/look','id'=>$model->user_id])?>"><img src="/uploads/avatar/<?=$model->user_id?>/<?=User::findimgbyid($model->user_id)?>" class="img_note"></a>
 </div>
     <div class="media-body">
     <div class="media-heading note-font">

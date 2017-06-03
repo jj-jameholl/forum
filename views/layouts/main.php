@@ -73,6 +73,10 @@ border-radius:25px;
    .layui-layer-content{
 	padding:5px;
 }
+    .test{
+        width:220px;
+        height:190px;
+    }
 </style>
 </head>
 <body>
@@ -110,7 +114,7 @@ border-radius:25px;
 				 <li><a href="#"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;&nbsp;我的收藏</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;&nbsp;我的相册</a></li>
                                 <li class="divider"></li>
-                        	<li id="tips"><a href="<?=Url::toRoute(['/site/logout'])?>" data-method="post"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;&nbsp;退出登录</a></li>
+                        	<li class="logout"><a href="<?=Url::toRoute(['/site/logout'])?>" data-method="post"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;&nbsp;退出登录</a></li>
 			     <!--  <li><?php
                                     echo Html::beginForm(['/site/logout'], 'post', ['class' => 'navbar-form']);
 					 echo Html::submitButton(
@@ -141,34 +145,34 @@ border-radius:25px;
 </div>
 <script type="text/javascript">
     $(function () {
-        $(".img_popover").popover({
-            triggle: 'manual',
-            placement: 'left',
-            html: true,
-            content: "22",
-            animation: true,
-            //delay: {"show": 500, "hide": 100}
-        }).on("mouseenter", function () {
+	$(".btn-tooltip").tooltip();
+	$(".logout").tooltip({
+	   title:'退出登录',
+	   placement:'left',
+	});
+	        $(document).on('mouseenter', '[rel=author]', function() {
             var _this = this;
-            $(this).popover("show");
-            $(this).siblings(".popover").on("mouseleave", function () {
-                $(_this).popover('hide');
-            });
-        }).on("mouseleave", function () {
+                    $(_this).popover({
+                        container:'body',
+                        html: true,
+			animation:true,
+                        placement: 'auto right',
+                        content: '<div class="test"><img src="load.gif" style="padding-left:100px;padding-top:70px"></div>'
+                    }).popover('show');
+                    $('.popover-content').load($(_this).attr('href'));
+                    $('.popover').on('mouseleave', function() {
+                        $(_this).popover('destroy');
+                    });
+        }).on('mouseleave', '[rel=author]', function() {
             var _this = this;
-            setTimeout(function () {
+            setTimeout(function() {
                 if (!$(".popover:hover").length) {
-                    $(_this).popover("hide");
+                    $(_this).popover('destroy');
+                    //alert(JSON.stringify($(".popover:hover")));
                 }
             }, 100);
         });
     });
-var tipsi;
-        $("#tips").hover(function(){
-            tipsi = layer.tips('点击注销登录',this,{tips:[4,'black'],time:0});
-        },function(){
-            layer.close(tipsi);
-        });
 </script>
     <div class="container"style="padding-left:0px;padding-right:0px">
         <?= Breadcrumbs::widget([
